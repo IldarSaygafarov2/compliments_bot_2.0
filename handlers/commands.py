@@ -34,7 +34,7 @@ def get_compliment(message):
 @bot.message_handler(commands=['special'])
 def get_special(message):
     chat_id = message.chat.id
-    if chat_id != 1080936152:
+    if chat_id != 1080936152 or chat_id != 5090318438:
         bot.send_message(chat_id, 'Прости, но эти сообщения может получить только один человек!')
         return
 
