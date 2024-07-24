@@ -7,4 +7,4 @@ load_dotenv()
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 
-MAIN_USER_ID = 1080936152
+MAIN_USER_ID = os.getenv("MAIN_USER_ID")

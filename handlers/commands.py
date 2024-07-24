@@ -31,18 +31,29 @@ def get_compliment(message):
     bot.send_message(chat_id, compliment)
 
 
+@bot.message_handler(commands=['special'])
+def get_special(message):
+    chat_id = message.chat.id
+    if chat_id != config.MAIN_USER_ID:
+        bot.send_message(chat_id, 'Прости, но эти сообщения может получить только один человек!')
+        return
+
+    compliments = read_file("my_compliments.txt")
+    compliment = random.choice(compliments)
+    bot.send_message(config.MAIN_USER_ID, 'это сообщение для тебя малыш!')
+    bot.send_message(config.MAIN_USER_ID, compliment)
+
 
 def send_compliment_by_me():
     my_compliments = read_file("my_compliments.txt")
     compliment = random.choice(my_compliments)
-
-    for chat_id in [config.MAIN_USER_ID, 5090318438]:
-        try:
-            bot.send_message(chat_id, "А это для моей девочки♥")
-            bot.send_message(chat_id, compliment)
-        except ApiTelegramException as e:
-            if e.description == 'Forbidden: bot was blocked by the user':
-                print('bot was blocked by', chat_id)
+    chat_id = config.MAIN_USER_ID
+    # config.MAIN_USER_ID
+    # for chat_id in [config.MAIN_USER_ID, 5090318438]:
+    try:
+        bot.send_message(chat_id, "А это для моей девочки♥")
+        bot.send_message(chat_id, compliment)
+    except ApiTelegramException as e:
+        if e.description == 'Forbidden: bot was blocked by the user':
+            print('bot was blocked by', chat_id)
     print('отправлено')
-
-
